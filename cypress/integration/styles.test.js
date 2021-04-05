@@ -10,7 +10,7 @@ describe('Style tests', () => {
     cy.get('[data-testid="shape-1"]')
       .then($shape1 => {
         cy.get('[data-testid="shape-2"]')
-          .should('have.distanceBetweenEdges', $shape1, 'top', 'bottom', 20);
+          .should('have.distanceBetweenEdges', $shape1, 'top', 'bottom', 20, 1);
       });
   });
   it('should check that two elements have the same width', () => {

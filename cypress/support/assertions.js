@@ -58,7 +58,7 @@ export const styleAssertions = (_chai) => {
     );
   }
 
-  _chai.Assertion.addMethod('sameWidthAs', sameWidthAs);
   _chai.Assertion.addMethod('computedStyles', computedStyles);
   _chai.Assertion.addMethod('distanceBetweenEdges', distanceBetweenEdges);
+  _chai.Assertion.addMethod('sameWidthAs', sameWidthAs);
 };
