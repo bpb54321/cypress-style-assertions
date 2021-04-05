@@ -1,5 +1,5 @@
-export const computedStyles = (_chai) => {
-  function assertComputedStyles(expectedStyles) {
+export const styleAssertions = (_chai) => {
+  function computedStyles(expectedStyles) {
     const $element = this._obj;
     const element = $element.get(0);
     const computedStyles = getComputedStyle(element);
@@ -13,11 +13,8 @@ export const computedStyles = (_chai) => {
       );
     }
   }
-  _chai.Assertion.addMethod('computedStyles', assertComputedStyles);
-};
 
-export const distanceBetweenEdges = (_chai) => {
-  function assertDistanceBetweenEdges($secondElement, firstElementEdge, secondElementEdge, distance, tolerance = 0) {
+  function distanceBetweenEdges($secondElement, firstElementEdge, secondElementEdge, distance, tolerance = 0) {
     const $firstElement = this._obj;
     const firstElement = $firstElement.get(0);
     const firstElementRect = firstElement.getBoundingClientRect();
@@ -29,12 +26,14 @@ export const distanceBetweenEdges = (_chai) => {
     const firstElementAsString = `${firstElement.tagName}.${firstElement.classList}`;
     const secondElementAsString = `${secondElement.tagName}.${secondElement.classList}`;
     this.assert(
-       actualDistance <= upperBound && actualDistance >= lowerBound,
+      actualDistance <= upperBound && actualDistance >= lowerBound,
       `expected (${firstElementAsString}).${firstElementEdge} - (${secondElementAsString}).${secondElementEdge} 
       to be ${distance} +/- ${tolerance}: was ${actualDistance}`,
       `expected (${firstElementAsString}).${firstElementEdge} - (${secondElementAsString}).${secondElementEdge} 
       not to be ${distance} +/- ${tolerance}: was ${actualDistance}`
     );
   }
-  _chai.Assertion.addMethod('distanceBetweenEdges', assertDistanceBetweenEdges);
+
+  _chai.Assertion.addMethod('computedStyles', computedStyles);
+  _chai.Assertion.addMethod('distanceBetweenEdges', distanceBetweenEdges);
 };
