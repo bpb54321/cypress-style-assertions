@@ -13,4 +13,11 @@ describe('Style tests', () => {
           .should('have.distanceBetweenEdges', $shape1, 'top', 'bottom', 20);
       });
   });
+  it('should check that two elements have the same width', () => {
+    cy.get('[data-testid="shape-1"]')
+      .then($shape1 => {
+        cy.get('[data-testid="shape-2"]')
+          .should('be.sameWidthAs', $shape1);
+      });
+  });
 });

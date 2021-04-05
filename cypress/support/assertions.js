@@ -1,3 +1,7 @@
+function getStringRepresentationOfElement(element) {
+  return `(${element.tagName}.${element.classList})`;
+}
+
 export const styleAssertions = (_chai) => {
   function computedStyles(expectedStyles) {
     const $element = this._obj;
@@ -23,17 +27,38 @@ export const styleAssertions = (_chai) => {
     const upperBound = distance + tolerance;
     const lowerBound = distance - tolerance;
     const actualDistance = firstElementRect[firstElementEdge] - secondElementRect[secondElementEdge];
-    const firstElementAsString = `${firstElement.tagName}.${firstElement.classList}`;
-    const secondElementAsString = `${secondElement.tagName}.${secondElement.classList}`;
+    const firstElementAsString = getStringRepresentationOfElement(firstElement);
+    const secondElementAsString = getStringRepresentationOfElement(secondElement);
     this.assert(
       actualDistance <= upperBound && actualDistance >= lowerBound,
-      `expected (${firstElementAsString}).${firstElementEdge} - (${secondElementAsString}).${secondElementEdge} 
+      `expected ${firstElementAsString}.${firstElementEdge} - ${secondElementAsString}.${secondElementEdge} 
       to be ${distance} +/- ${tolerance}: was ${actualDistance}`,
-      `expected (${firstElementAsString}).${firstElementEdge} - (${secondElementAsString}).${secondElementEdge} 
+      `expected ${firstElementAsString}.${firstElementEdge} - ${secondElementAsString}.${secondElementEdge} 
       not to be ${distance} +/- ${tolerance}: was ${actualDistance}`
     );
   }
 
+  function sameWidthAs($element2, tolerance = 0) {
+    const $element1 = this._obj;
+    const element1 = $element1.get(0);
+    const element1Rect = element1.getBoundingClientRect();
+
+    const element2 = $element2.get(0);
+    const element2Rect = element2.getBoundingClientRect();
+
+    const element1AsString = getStringRepresentationOfElement(element1);
+    const element2AsString = getStringRepresentationOfElement(element2);
+
+    this.assert(
+      Math.abs(element1Rect.width - element2Rect.width) <= tolerance,
+      `expected ${element1AsString}.width to equal ${element2AsString}.width +/- ${tolerance}: ` +
+      `${element1AsString}.width was ${element1Rect.width} and ${element2AsString}.width was ${element2Rect.width}`,
+      `expected ${element1AsString}.width not to equal ${element2AsString}.width +/- ${tolerance}: ` +
+      `${element1AsString}.width was ${element1Rect.width} and ${element2AsString}.width was ${element2Rect.width}`,
+    );
+  }
+
+  _chai.Assertion.addMethod('sameWidthAs', sameWidthAs);
   _chai.Assertion.addMethod('computedStyles', computedStyles);
   _chai.Assertion.addMethod('distanceBetweenEdges', distanceBetweenEdges);
 };
