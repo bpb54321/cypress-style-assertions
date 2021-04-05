@@ -4,7 +4,7 @@ describe('Style tests', () => {
     const expectedStyles = {
       'background-color': 'rgb(127, 255, 212)'
     }
-    cy.get('[data-testid="app"]').should('haveComputedStyles', expectedStyles);
+    cy.get('[data-testid="app"]').should('have.computedStyles', expectedStyles);
   });
   it('should check distances between box edges', () => {
     cy.get('[data-testid="shape-1"]')

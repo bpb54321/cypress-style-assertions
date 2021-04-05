@@ -20,6 +20,6 @@ import "./commands";
 // require('./commands')
 
 // Assertions
-import { haveComputedStyles, distanceBetweenEdges } from "./assertions";
-chai.use(haveComputedStyles);
+import { computedStyles, distanceBetweenEdges } from "./assertions";
+chai.use(computedStyles);
 chai.use(distanceBetweenEdges);

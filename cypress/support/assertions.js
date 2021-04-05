@@ -1,5 +1,5 @@
-export const haveComputedStyles = (_chai) => {
-  function assertHaveComputedStyles(expectedStyles) {
+export const computedStyles = (_chai) => {
+  function assertComputedStyles(expectedStyles) {
     const $element = this._obj;
     const element = $element.get(0);
     const computedStyles = getComputedStyle(element);
@@ -8,18 +8,16 @@ export const haveComputedStyles = (_chai) => {
       const actualStyleValue = computedStyles[styleProperty];
       this.assert(
          expectedStyleValue === actualStyleValue,
-        `expected ${styleProperty} to be ${expectedStyleValue}, 
-        but was ${actualStyleValue}`,
-        `expected ${styleProperty} not to be ${expectedStyleValue},
-        but was ${actualStyleValue}`
+        `expected ${styleProperty} to be ${expectedStyleValue}: was ${actualStyleValue}`,
+        `expected ${styleProperty} not to be ${expectedStyleValue}: was ${actualStyleValue}`
       );
     }
   }
-  _chai.Assertion.addMethod('haveComputedStyles', assertHaveComputedStyles);
+  _chai.Assertion.addMethod('computedStyles', assertComputedStyles);
 };
 
 export const distanceBetweenEdges = (_chai) => {
-  function assertCertainDistanceFrom($secondElement, firstElementEdge, secondElementEdge, distance, tolerance = 0) {
+  function assertDistanceBetweenEdges($secondElement, firstElementEdge, secondElementEdge, distance, tolerance = 0) {
     const $firstElement = this._obj;
     const firstElement = $firstElement.get(0);
     const firstElementRect = firstElement.getBoundingClientRect();
@@ -38,5 +36,5 @@ export const distanceBetweenEdges = (_chai) => {
       not to be ${distance} +/- ${tolerance}: was ${actualDistance}`
     );
   }
-  _chai.Assertion.addMethod('distanceBetweenEdges', assertCertainDistanceFrom);
+  _chai.Assertion.addMethod('distanceBetweenEdges', assertDistanceBetweenEdges);
 };
