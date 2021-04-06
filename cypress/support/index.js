@@ -20,5 +20,5 @@ import "./commands";
 // require('./commands')
 
 // Assertions
-import { styleAssertions } from "./assertions";
+import { styleAssertions } from "chai-styles-dimensions";
 chai.use(styleAssertions);
